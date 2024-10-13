@@ -211,7 +211,7 @@ const handler = async (m, { command, text }) => {
   m.reply(randomResponse.trim(), null, m.mentionedJid ? { mentions: m.mentionedJid } : {});
 };
 
-handler.customPrefix = /come/i;
+handler.customPrefix = /%/;
 handler.command = new RegExp;
 
 export default handler;
