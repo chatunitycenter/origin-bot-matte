@@ -17,3 +17,4 @@ return this.sendFile(m.chat, buffer, 'error.mp4', `${msg[type].caption}\n\nNon s
 } else if (/image/.test(type)) {
 return this.sendFile(m.chat, buffer, 'error.jpg', `${msg[type].caption}\n\nNon si nasconde nulla`, m)
 }}}
+

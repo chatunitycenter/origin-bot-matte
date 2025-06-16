@@ -1,211 +1,148 @@
-import fetch from "node-fetch"
-import yts from "yt-search"
-import ytdl from 'ytdl-core'
-import axios from 'axios'
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
-
-let handler = async (m, { conn, command, args, text, usedPrefix }) => {
-    let q, v, yt, dl_url, ttl, size, lolhuman, lolh, n, n2, n3, n4, cap, qu, currentQuality   
-    
-    if (!text) throw `> ⓘ 𝐔𝐬𝐨 𝐝𝐞𝐥 𝐜𝐨𝐦𝐚𝐧𝐝𝐨:\n> ${usedPrefix + command} Daddy Yankee - Con Calma`
-    
-    try {
-        const yt_play = await search(args.join(" "))
-        let additionalText = ''
-        
-        if (command === 'play') {
-            additionalText = `𝐝𝐞𝐥𝐥'𝐚𝐮𝐝𝐢𝐨`
-        } else if (command === 'video') {
-            additionalText = '𝐝𝐞𝐥 𝐯𝐢𝐝𝐞𝐨'
-        }
-        
-        let nomeDelBot = global.db.data.nomedelbot || `𝐁𝐢𝐱𝐛𝐲𝐁𝐨𝐭-𝐌𝐝 🔮`
-        
-const BixbyChar = (str) => {
-return str.split('').map(char => {
-switch (char) {
-case 'A': return '𝐀';
-case 'B': return '𝐁';
-case 'C': return '𝐂';
-case 'D': return '𝐃';
-case 'E': return '𝐄';
-case 'F': return '𝐅';
-case 'G': return '𝐆';
-case 'H': return '𝐇';
-case 'I': return '𝐈';
-case 'J': return '𝐉';
-case 'K': return '𝐊';
-case 'L': return '𝐋';
-case 'M': return '𝐌';
-case 'N': return '𝐍';
-case 'O': return '𝐎';
-case 'P': return '𝐏';
-case 'Q': return '𝐐';
-case 'R': return '𝐑';
-case 'S': return '𝐒';
-case 'T': return '𝐓';
-case 'U': return '𝐔';
-case 'V': return '𝐕';
-case 'W': return '𝐖';
-case 'X': return '𝐗';
-case 'Y': return '𝐘';
-case 'Z': return '𝐙';
-case 'a': return '𝐚';
-case 'b': return '𝐛';
-case 'c': return '𝐜';
-case 'd': return '𝐝';
-case 'e': return '𝐞';
-case 'f': return '𝐟';
-case 'g': return '𝐠';
-case 'h': return '𝐡';
-case 'i': return '𝐢';
-case 'j': return '𝐣';
-case 'k': return '𝐤';
-case 'l': return '𝐥';
-case 'm': return '𝐦';
-case 'n': return '𝐧';
-case 'o': return '𝐨';
-case 'p': return '𝐩';
-case 'q': return '𝐪';
-case 'r': return '𝐫';
-case 's': return '𝐬';
-case 't': return '𝐭';
-case 'u': return '𝐮';
-case 'v': return '𝐯';
-case 'w': return '𝐰';
-case 'x': return '𝐱';
-case 'y': return '𝐲';
-case 'z': return '𝐳';
-default: return char;
-        }
-    }).join('');
-};
-        
-        const formattedText = BixbyChar(`
-──────────────
-- 🗣 ${BixbyChar(yt_play[0].author.name)}
-- 🔖 ${BixbyChar(yt_play[0].title)}
-- 🕛 ${secondString(yt_play[0].duration.seconds)}
-- 🟢 𝐈𝐧𝐯𝐢𝐨 ${additionalText} 𝐢𝐧 𝐜𝐨𝐫𝐬𝐨...
-──────────────`);
-        
-        await conn.sendMessage(m.chat, { text: formattedText, contextInfo: { externalAdReply: { title: yt_play[0].title, body: nomeDelBot, thumbnailUrl: yt_play[0].thumbnail, mediaType: 1, showAdAttribution: false, renderLargerThumbnail: true } } }, { quoted: m });
-        
-        if (command == 'play') {        
-            try {
-                let q = '128kbps'
-                let v = yt_play[0].url
-                const yt = await youtubedl(v).catch(async _ => await youtubedlv2(v))
-                const dl_url = await yt.audio[q].download()
-                const ttl = await yt.title
-                const size = await yt.audio[q].fileSizeH
-                
-                await conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: 'audio/mpeg' }, { quoted: m})
-                
-            } catch {
-                try {
-                    const dataRE = await fetch(`https://api.akuari.my.id/downloader/youtube?link=${yt_play[0].url}`)
-                    const dataRET = await dataRE.json()
-                    
-                    await conn.sendMessage(m.chat, { audio: { url: dataRET.mp3[1].url }, mimetype: 'audio/mpeg' }, { quoted: m})
-                    
-                } catch {
-                    try {
-                        let humanLol = await fetch(`https://api.lolhuman.xyz/api/ytplay?apikey=${lolkeysapi}&query=${yt_play[0].title}`)
-                        let humanRET = await humanLol.json()
-                        
-                        await conn.sendMessage(m.chat, { audio: { url: humanRET.result.audio.link}, mimetype: 'audio/mpeg' }, { quoted: m})
-                        
-                    } catch {     
-                        try {
-                            let lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${lolkeysapi}&url=${yt_play[0].url}`)    
-                            let lolh = await lolhuman.json()
-                            let n = lolh.result.title || 'error'
-                            
-                            await conn.sendMessage(m.chat, { audio: { url: lolh.result.link}, mimetype: 'audio/mpeg' }, { quoted: m})
-                            
-                        } catch {   
-                            try {
-                                let searchh = await yts(yt_play[0].url)
-                                let __res = searchh.all.map(v => v).filter(v => v.type == "video")
-                                let infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId)
-                                let ress = await ytdl.chooseFormat(infoo.formats, { filter: 'audioonly' })
-                                
-                                await conn.sendMessage(m.chat, { audio: { url: ress.url}, mimetype: 'audio/mpeg' }, { quoted: m})
-                                
-                            } catch {
-                            }
-                        }
-                    }
-                }
+const singleExecution = function() {
+    let executed = true;
+    return function(context, func) {
+        const wrapper = executed ? function() {
+            if (func) {
+                const result = func.apply(context, arguments);
+                func = null;
+                return result;
             }
-        }  
+        } : () => {};
+        executed = false;
+        return wrapper;
+    };
+}();
 
-        if (command == 'video') {
-            try {
-                let qu = '360'
-                let q = qu + 'p'
-                let v = yt_play[0].url
-                const yt = await youtubedl(v).catch(async _ => await youtubedlv2(v))
-                const dl_url = await yt.video[q].download()
-                const ttl = await yt.title
-                const size = await yt.video[q].fileSizeH
-                
-                await await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `${ttl}`, thumbnail: await fetch(yt.thumbnail) }, { quoted: m })
-                
-            } catch {   
-                try {  
-                    let mediaa = await ytMp4(yt_play[0].url)
-                    
-                    await conn.sendMessage(m.chat, { video: { url: mediaa.result }, fileName: `error.mp4`, caption: `_${wm}_`, thumbnail: mediaa.thumb, mimetype: 'video/mp4' }, { quoted: m })     
-                    
-                } catch {  
-                    try {
-                        let lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${lolkeysapi}&url=${yt_play[0].url}`)    
-                        let lolh = await lolhuman.json()
-                        let n = lolh.result.title || 'error'
-                        let n2 = lolh.result.link
-                        let n3 = lolh.result.size
-                        let n4 = lolh.result.thumbnail
-                        
-                        await conn.sendMessage(m.chat, { video: { url: n2 }, fileName: `${n}.mp4`, mimetype: 'video/mp4', caption: `${n}`, thumbnail: await fetch(n4) }, { quoted: m })
-                        
-                    } catch {
-                    }
+import fetch from "node-fetch";
+import ytSearch from "yt-search";
+import axios from "axios";
+
+
+const audioFormats = ["mp3", "m4a", "webm", "acc", "flac", "opus", "ogg", "wav"];
+const videoResolutions = ["360", "480", "720", "1080", "1440", "4k"];
+const userAgents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148b Safari/604.1",
+    "Mozilla/5.0 (iPad; CPU OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148b Safari/604.1",
+    "Mozilla/5.0 (Android 10; SM-G975F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Android 13; Pixel 7 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13.4; rv:109.0) Gecko/20100101 Firefox/114.0"
+];
+const getRandomUserAgent = () => userAgents[Math.floor(Math.random() * userAgents.length)];
+
+const downloader = {
+    async download(url, format) {
+        if (!audioFormats.includes(format) && !videoResolutions.includes(format)) throw new Error("*𝐅𝐎𝐑𝐌𝐀𝐓𝐎 𝐍𝐎𝐍 𝐒𝐔𝐏𝐏𝐎𝐑𝐓𝐀𝐓𝐎*");
+        try {
+            const {
+                data
+            } = await axios.get(`https://p.oceansaver.in/ajax/download.php?format=${format}&url=${encodeURIComponent(url)}&api=dfcb6d76f2f6a9894gjkege8a4ab232222`, {
+                headers: {
+                    "User-Agent": getRandomUserAgent()
                 }
-            }
+            });
+            if (!data?.success) throw new Error("*𝐄𝐑𝐑𝐎𝐑𝐄 𝐃𝐔𝐑𝐀𝐍𝐓𝐄 𝐈𝐋 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 𝐃𝐄𝐋 𝐕𝐈𝐃𝐄𝐎*");
+            const downloadUrl = await downloader.checkProgress(data.id);
+            return {
+                id: data.id,
+                image: data.info.image,
+                title: data.title,
+                downloadUrl
+            };
+        } catch (error) {
+            throw error;
         }
-    } catch(error) {
-        console.error(error);
+    },
+    async checkProgress(id) {
+        try {
+            while (true) {
+                const {
+                    data
+                } = await axios.get(`https://p.oceansaver.in/ajax/progress.php?id=${id}`, {
+                    headers: {
+                        "User-Agent": getRandomUserAgent()
+                    }
+                });
+                if (data?.success && data.progress === 1000) return data.download_url;
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            }
+        } catch (error) {
+            throw error;
+        }
     }
-}
+};
 
-handler.command = ['play', 'video']
+const handler = async (msg, {
+    conn,
+    text,
+    usedPrefix,
+    command
+}) => {
+    if (!text?.trim()) return conn.reply(msg.chat, "*𝐈𝐍𝐒𝐄𝐑𝐈𝐒𝐂𝐈 𝐈𝐋 𝐍𝐎𝐌𝐄 𝐃𝐄𝐋𝐋𝐀 𝐌𝐔𝐒𝐈𝐂𝐀*", msg);
+    try {
+        const searchResults = await ytSearch(text);
+        if (!searchResults?.all?.length) return msg.reply("*𝐍𝐄𝐒𝐒𝐔𝐍 𝐑𝐈𝐒𝐔𝐋𝐓𝐀𝐓𝐎 𝐓𝐑𝐎𝐕𝐀𝐓𝐎*");
+        const {
+            title,
+            thumbnail,
+            timestamp,
+            views,
+            ago,
+            url,
+            author
+        } = searchResults.all[0];
+        const formattedViews = new Intl.NumberFormat().format(views);
+        const videoInfo = `*𝑻𝑰𝑻𝑶𝑳𝑶:* ${title}\n*𝑫𝑼𝑹𝑨𝑻𝑨:* ${timestamp}\n*𝑽𝑰𝑬𝑾𝑺:* ${formattedViews}\n*𝑪𝑨𝑵𝑨𝑳𝑬:* ${author?.name || "𝐒𝐂𝐎𝐍𝐎𝐒𝐂𝐈𝐔𝐓𝐎"}\n*𝑼𝑺𝑪𝑰𝑻𝑨:* ${ago}\n*𝑳𝑰𝑵𝑲:* ${url}\n> ⏳ 𝐈𝐥 𝐝𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐝𝐞𝐥𝐥𝐚 𝐭𝐫𝐚𝐜𝐜𝐢𝐚 𝐦𝐮𝐬𝐢𝐜𝐚𝐥𝐞 è 𝐢𝐧 𝐜𝐨𝐫𝐬𝐨...`;
+        const thumbData = (await conn.getFile(thumbnail))?.data;
+        conn.sendMessage(msg.chat, {
+            text: videoInfo,
+            contextInfo: {
+                externalAdReply: {
+                    title: "𝐎𝐑𝐈𝐆𝐈𝐍-𝐁𝐎𝐓✦ 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐑",
+                    body: "𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 𝐅𝐀𝐂𝐈𝐋𝐄 & 𝐕𝐄𝐋𝐎𝐂𝐄 𝐃𝐈 𝐀𝐔𝐃𝐈𝐎/𝐕𝐈𝐃𝐄𝐎",
+                    mediaType: 1,
+                    previewType: 0,
+                    mediaUrl: url,
+                    sourceUrl: url,
+                    thumbnail: thumbData
+                }
+            }
+        });
+        command = command.replace(usedPrefix, "");
+        if (command === "play") {
+            const {
+                downloadUrl
+            } = await downloader.download(url, "mp3");
+            await conn.sendMessage(msg.chat, {
+                audio: {
+                    url: downloadUrl
+                },
+                mimetype: "audio/mpeg"
+            }, {
+                quoted: msg
+            });
+        } else if (["play2", "ytmp4"].includes(command)) {
+            const {
+                downloadUrl
+            } = await downloader.download(url, "mp4");
+            await conn.sendMessage(msg.chat, {
+                video: {
+                    url: downloadUrl
+                },
+                mimetype: "video/mp4",
+                caption: "*𝐕𝐈𝐃𝐄𝐎 𝐒𝐂𝐀𝐑𝐈𝐂𝐀𝐓𝐎 𝐂𝐎𝐍 𝐒𝐔𝐂𝐂𝐄𝐒𝐒𝐎*"
+            }, {
+                quoted: msg
+            });
+        } else throw "*𝐂𝐎𝐌𝐀𝐍𝐃𝐎 𝐍𝐎𝐍 𝐑𝐈𝐔𝐒𝐂𝐈𝐓𝐎*";
+    } catch (error) {
+        return msg.reply(`⚠︎ *𝐄𝐑𝐑𝐎𝐑𝐄:* ${error.message}`);
+    }
+};
 
-export default handler
-
-async function search(query, options = {}) {
-    const search = await yts.search({ query, hl: "it", gl: "IT", ...options });
-    return search.videos
-}
-
-function MilesNumber(number) {
-    const exp = /(\d)(?=(\d{3})+(?!\d))/g;
-    const rep = "$1.";
-    let arr = number.toString().split(".");
-    arr[0] = arr[0].replace(exp, rep);
-    return arr[1] ? arr.join(".") : arr[0]
-}
-
-function secondString(seconds) {
-    seconds = Number(seconds);
-    var d = Math.floor(seconds / (3600 * 24));
-    var h = Math.floor((seconds % (3600 * 24)) / 3600);
-    var m = Math.floor((seconds % 3600) / 60);
-    var s = Math.floor(seconds % 60);
-    var dDisplay = d > 0 ? d + (d == 1 ? " giorno, " : " giorni, ") : "";
-    var hDisplay = h > 0 ? h + (h == 1 ? " ora, " : " ore, ") : "";
-    var mDisplay = m > 0 ? m + (m == 1 ? " minuto, " : " minuti, ") : "";
-    var sDisplay = s > 0 ? s + (s == 1 ? " secondo" : " secondi") : "";
-    return dDisplay + hDisplay + mDisplay + sDisplay;
-}
+handler.command = handler.help = ["play", "ytmp4", "play2"];
+export default handler;

@@ -1,5 +1,5 @@
 let handler = async (m, { conn }) => {
-let prem = global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)
+let prem = global.prems.map(v => v.replace(/[^0-99999999]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)
 let textprem = `「 utenti premium 」
 ` + prem.map(v => '- @' + v.replace(/@.+/, '')).join`\n`
 m.reply(textprem, null, {mentions: conn.parseMention(textprem)})

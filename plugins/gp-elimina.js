@@ -1,47 +1,39 @@
+//.del migliorato da kinderino 
 let handler = async (m, { conn, usedPrefix, command }) => {
 
-if (!m.quoted) return
+  if (!m.quoted) return;
 
-try {
+  try {
+    let key = {};
 
-let key = {}
+    try {
+      key.remoteJid = m.quoted ? m.quoted.fakeObj.key.remoteJid : m.key.remoteJid;
+      key.fromMe = m.quoted ? m.quoted.fakeObj.key.fromMe : m.key.fromMe;
+      key.id = m.quoted ? m.quoted.fakeObj.key.id : m.key.id;
+      key.participant = m.quoted ? m.quoted.fakeObj.participant : m.key.participant;
+    } catch (e) {
+      console.error(e);
+    }
 
-try {
+    await conn.sendMessage(m.chat, { delete: key });
+    await conn.sendMessage(m.chat, { delete: m.key });
 
-key.remoteJid = m.quoted ? m.quoted.fakeObj.key.remoteJid : m.key.remoteJid
+  } catch (err) {
+    console.error(err);
+    try {
+      await conn.sendMessage(m.chat, { delete: m.quoted.vM.key });
+      await conn.sendMessage(m.chat, { delete: m.key });
+    } catch (e) {
+      console.error('Errore anche nel catch secondario:', e);
+    }
+  }
+};
 
-key.fromMe = m.quoted ? m.quoted.fakeObj.key.fromMe : m.key.fromMe
+handler.help = ['delete'];
+handler.tags = ['group'];
+handler.command = /^del(ete)?$/i;
+handler.group = true; 
+handler.admin = true;
+handler.botAdmin = true;
 
-key.id = m.quoted ? m.quoted.fakeObj.key.id : m.key.id
-
-key.participant = m.quoted ? m.quoted.fakeObj.participant : m.key.participant
-
-} catch (e) {
-
-console.error(e)
-
-}
-
-return conn.sendMessage(m.chat, { delete: key })
-
-} catch {
-
-return conn.sendMessage(m.chat, { delete: m.quoted.vM.key })
-
-}
-
-}
-
-handler.help = ['delete']
-
-handler.tags = ['group']
-
-handler.command = /^del(ete)?$/i
-
-handler.group = false
-
-handler.admin = true
-
-handler.botAdmin = true
-
-export default handler
+export default handler;

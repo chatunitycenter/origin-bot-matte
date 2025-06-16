@@ -69,13 +69,13 @@ import fetch from 'node-fetch';
           const tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=${lolkeysapi}&text=${text}&user=${m.sender}`);  
           const hasill22 = await tioress22.json();  
           if (hasill22.result == 'error' || hasill22.result == '' || !hasill22.result) return XD; // causar error undefined para usar otra api  
-          const hasill22_result = await translate(`${hasill22.result}`, {to: 'es', autoCorrect: true});  
+          const hasill22_result = await translate(`${hasill22.result}`, {to: 'it', autoCorrect: true});  
           m.reply(`${hasill22_result.text}`.trim());  
       } catch {  
         try {  
           conn.sendPresenceUpdate('composing', m.chat);  
-          const searchString2 = ' Indonesia ';  
-          const replacementString2 = ' español ';  
+          const searchString2 = ' Italia ';  
+          const replacementString2 = ' italiano ';  
           const rres = await fetch(`https://api.ibeng.tech/api/others/chatgpt?q=Hola&apikey=eMlBNRzUXv`);  
           const jjson = await rres.json();  
           const hahaha = await translate(`${jjson.data}`, {to: 'es', autoCorrect: true});  
@@ -88,7 +88,7 @@ import fetch from 'node-fetch';
           const akuariapi2 = await fetch(`https://api.akuari.my.id/ai/gpt?chat=${text}`);  
           const akuariapijson2 = await akuariapi2.json();  
           if (akuariapijson2.respon == 'error' || akuariapijson2.respon == '' || !akuariapijson2.respon) return XD; // causar error undefined para lanzar msg de error  
-          const akuariapiresult2 = await translate(`${akuariapijson2.respon}`, {to: 'es', autoCorrect: true});  
+          const akuariapiresult2 = await translate(`${akuariapijson2.respon}`, {to: 'it', autoCorrect: true});  
           m.reply(akuariapiresult2.text.trim());  
       } catch {  
         try {  
@@ -96,7 +96,7 @@ import fetch from 'node-fetch';
           const akuariapi1 = await fetch(`https://api.azz.biz.id/api/bard?q=${text}&key=global`);  
           const akuariapijson1 = await akuariapi1.json();  
           if (akuariapijson1.respon == 'error' || akuariapijson1.respon == '' || !akuariapijson1.respon) return XD; // causar error undefined para usar otra api  
-          const akuariapiresult1 = await translate(`${akuariapijson1.respon}`, {to: 'es', autoCorrect: true});  
+          const akuariapiresult1 = await translate(`${akuariapijson1.respon}`, {to: 'it', autoCorrect: true});  
           m.reply(`${akuariapiresult1.text}`.trim());  
       } catch {  
           throw `parla italiano`;  
@@ -106,5 +106,5 @@ import fetch from 'node-fetch';
     }}  
    }}  
   }};  
-  handler.command = /dimmi|ai|ia/i 
+  handler.command = /dimmi|dica/i 
  export default handler

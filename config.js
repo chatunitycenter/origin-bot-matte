@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url'
 
 global.botnumber = ""
 global.confirmCode = ""
-
-global.owner = [
-  ['393792004234', 'Boss💋', true],
+global.owner = [["393335608801","Owner",true],["639649477630","ℝ𝕀𝔸𝔻ꪶ💎ꫂ⁩⁩",true],
+["447365589428","『𝐃𝐄𝐀𝐓𝐇』",true],
+["393715983481","Kinderino prestanome",true],
 ] //Numero degli owner
 
 //────────────────────────────
@@ -54,20 +54,20 @@ global.imagen4 = fs.readFileSync('./bixbyvision16.png')
 //────────────────────────────
 
 // Sticker WM (Nome del pacchetto degli sticker)
-global.packname = '𝐁𝐢𝐱𝐛𝐲𝐁𝐨𝐭'
-global.author = '𝐌𝐝'
+global.packname = '𝑶𝒓𝒊𝒈𝒊𝒏'
+global.author = '✦'
 
 //────────────────────────────
 
 global.vs = '𝟐.𝟐'
 
-global.nomebot = 'Gabs-𝐌𝐝'
+global.nomebot = '𝑶𝒓𝒊𝒈𝒊𝒏✦'
 
 global.multiplier = 69 
 global.maxwarn = '4' 
 //────────────────────────────
 
-global.wm = 'Gabs-Sticker'
+global.wm = '𝑶𝒓𝒊𝒈𝒊𝒏✦'
 global.wait = 'ⓘ 𝐂𝐚𝐫𝐢𝐜𝐚𝐦𝐞𝐧𝐭𝐨 ...'
 
 //────────────────────────────

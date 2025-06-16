@@ -78,6 +78,7 @@ export async function handler(chatUpdate) {
                 if (!('bestemmiometro' in chat)) chat.bestemmiometro = true
                 if (!('antielimina' in chat)) chat.antielimina = true
                 if (!('antiLink' in chat)) chat.antiLink = true
+                if (!('antilinkch' in chat)) chat.antilinkch = true
                 if (!('antiinsta' in chat)) chat.antiinsta = false
                 if (!('antitiktok' in chat)) chat.antitiktok = false
                 if (!('antiLink2' in chat)) chat.antiLink2 = false
@@ -509,7 +510,7 @@ export async function participantsUpdate({ id, participants, action }) {
                     } catch (e) {
                     } finally {
                         let apii = await this.getFile(pp)
-                        let nomeDelBot = global.db.data.nomedelbot || `𝐁𝐢𝐱𝐛𝐲𝐁𝐨𝐭-𝐌𝐝 🔮`
+                        let nomeDelBot = global.db.data.nomedelbot || `ᴼʳⁱᵍⁱⁿ ᴮᵒᵗ✦`
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Benvenuto, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'bot') :
                             (chat.sBye || this.bye || conn.bye || 'Addio, @user!')).replace('@user', '@' + user.split('@')[0])
                         this.sendMessage(id, { 
@@ -519,7 +520,7 @@ export async function participantsUpdate({ id, participants, action }) {
                                 forwardingScore: 99,
                                 isForwarded: true, 
                                forwardedNewsletterMessageInfo: {
-                               newsletterJid: '120363175463922716@newsletter',
+                               newsletterJid: '120363401745271270@newsletter',
                                serverMessageId: '', newsletterName: `${nomeDelBot}` },
                                externalAdReply: {
                                     "title": `${action === 'add' ? '𝐌𝐞𝐬𝐬𝐚𝐠𝐠𝐢𝐨 𝐝𝐢 𝐛𝐞𝐧𝐯𝐞𝐧𝐮𝐭𝐨' : '𝐌𝐞𝐬𝐬𝐚𝐠𝐠𝐢𝐨 𝐝𝐢 𝐚𝐝𝐝𝐢𝐨'}`,
@@ -548,7 +549,7 @@ export async function participantsUpdate({ id, participants, action }) {
                         pp = await this.profilePictureUrl(user, 'image')
                     } catch (e) {
                     } finally {
-                        let nomeDelBot = global.db.data.nomedelbot || `𝐁𝐢𝐱𝐛𝐲𝐁𝐨𝐭-𝐌𝐝 🔮`
+                        let nomeDelBot = global.db.data.nomedelbot || `ᴼʳⁱᵍⁱⁿ ᴮᵒᵗ✦`
                         let apii = await this.getFile(pp)
                         text = (action === 'promote' ? (chat.sPromote || this.spromote || conn.spromote || '@user ```è ora admin```') :
                             (chat.sDemote || this.sdemote || conn.sdemote || '@user ```non è più admin```')).replace('@user', '@' + user.split('@')[0])
@@ -559,7 +560,7 @@ export async function participantsUpdate({ id, participants, action }) {
                                 forwardingScore: 99,
                                 isForwarded: true, 
                                forwardedNewsletterMessageInfo: {
-                               newsletterJid: '120363175463922716@newsletter',
+                               newsletterJid: '120363401745271270@newsletter',
                                serverMessageId: '', newsletterName: `${nomeDelBot}` },
                                externalAdReply: {
                                     "title": `${action === 'promote' ? '𝐌𝐞𝐬𝐬𝐚𝐠𝐠𝐢𝐨 𝐝𝐢 𝐩𝐫𝐨𝐦𝐨𝐳𝐢𝐨𝐧𝐞 👑' : '𝐌𝐞𝐬𝐬𝐚𝐠𝐠𝐢𝐨 𝐝𝐢 𝐫𝐞𝐭𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐨𝐧𝐞 🙇🏻‍♂️'}`,
